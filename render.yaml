@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: brain-tumor-classification
+    runtime: python
+    region: oregon
+    rootDir: PROJECT/Brain-Tumor-Classification-Using-ResNet-master
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --worker-class eventlet -w 1 -b 0.0.0.0:$PORT app:app
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
