@@ -817,4 +817,4 @@ if __name__ == '__main__':
         print(f"  {rule.rule} -> {rule.endpoint} ({list(rule.methods)})")
     print("WebSocket events: connect, disconnect, chat_message, get_chat_history, clear_chat_history")
     print("Visit: http://localhost:5000")
-    socketio.run(app, debug=True, host='0.0.0.0', port=5000)
+    socketio.run(app, debug=True, host='0.0.0.0', port=5000, allow_unsafe_werkzeug=True)

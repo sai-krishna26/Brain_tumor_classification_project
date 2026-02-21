@@ -1,0 +1,55 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Flask uploads (user-uploaded images)
+static/uploads/*
+!static/uploads/.gitkeep
+
+# Model files (uncomment if you don't want to commit large model files)
+# *.h5
+# *.hdf5
+# *.pkl
+# *.pickle
+
+# Environment variables
+.env
+.envrc
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Python virtual environment
+venv/
+env/
+ENV/
+.venv
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Cursor
+.cursorignore
+.cursorindexingignore
