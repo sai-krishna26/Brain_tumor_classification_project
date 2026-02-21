@@ -7,11 +7,11 @@ __pycache__/
 static/uploads/*
 !static/uploads/.gitkeep
 
-# Model files (uncomment if you don't want to commit large model files)
-# *.h5
-# *.hdf5
-# *.pkl
-# *.pickle
+# Model files (large files - use Git LFS if needed)
+*.h5
+*.hdf5
+*.pkl
+*.pickle
 
 # Environment variables
 .env
