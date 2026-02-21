@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brain Tumor Classification System</title>
+  <link rel="stylesheet" href="/static/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <h1>🧠 Brain Tumor Classification System</h1>
+
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="ai-assistant">
+        <div class="assistant-header">
+          <span class="assistant-icon">AI</span>
+          <h2>Brain Health Assistant</h2>
+        </div>
+        <div id="chat-box" class="chat-box">
+          <div class="chat-placeholder">Ask me 💬</div>
+        </div>
+        <div class="chat-input-container">
+          <input type="text" id="chat-input" placeholder="Type your question here..." />
+          <button id="chat-send" class="send-btn">Send</button>
+        </div>
+      </div>
+      
+      <div class="about-card">
+        <h3>About</h3>
+        <p>This application utilizes deep learning to classify brain tumors from MRI scans. It performs image preprocessing, feature extraction, and classification using a ResNet50 neural network.</p>
+      </div>
+
+      <div class="conditions-detected">
+        <h3>Conditions Detected</h3>
+        <div class="condition-list">
+          <div class="condition-item">
+            <span class="condition-icon glioma"></span>
+            <span>Glioma Tumor</span>
+          </div>
+          <div class="condition-item">
+            <span class="condition-icon meningioma"></span>
+            <span>Meningioma Tumor</span>
+          </div>
+          <div class="condition-item">
+            <span class="condition-icon pituitary"></span>
+            <span>Pituitary Tumor</span>
+          </div>
+          <div class="condition-item">
+            <span class="condition-icon normal"></span>
+            <span>No Tumor</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- User History Section -->
+      <div id="user-history" class="user-history" style="display: none;">
+        <h3>Your Analysis History</h3>
+        <div id="history-list" class="history-list">
+          <p class="no-history">No previous analyses found.</p>
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="quick-stats">
+        <h3>Quick Stats</h3>
+        <div class="stat-item">
+          <span class="stat-label">Model Accuracy:</span>
+          <span class="stat-value">95.7%</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Total Classes:</span>
+          <span class="stat-value">4</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Training Samples:</span>
+          <span class="stat-value">1,311</span>
+        </div>
+      </div>
+
+      <!-- Brain Tumor Information Section -->
+      <div class="tumor-info-section">
+        <div class="info-header">
+          <span class="info-icon">🧠</span>
+          <h2>Brain Tumor Classification Guide</h2>
+        </div>
+
+        <!-- Glioma Information -->
+        <div class="tumor-info-card">
+          <div class="tumor-header glioma-header">
+            <h3>About Glioma Tumors</h3>
+          </div>
+          <div class="tumor-content">
+            <p class="tumor-description">
+              Gliomas are tumors that arise from glial cells in the brain and spinal cord. They are the most common type of primary brain tumor and can be aggressive.
+            </p>
+
+            <div class="info-section">
+              <h4>Characteristics</h4>
+              <ul>
+                <li>Originates from glial cells (supportive brain tissue)</li>
+                <li>Can be low-grade (slow-growing) or high-grade (aggressive)</li>
+                <li>Most common primary brain tumor in adults</li>
+                <li>Difficult to completely remove surgically</li>
+              </ul>
+            </div>
+
+            <div class="info-section">
+              <h4>Common Symptoms</h4>
+              <ul>
+                <li>Persistent headaches</li>
+                <li>Seizures (especially new-onset)</li>
+                <li>Cognitive changes or memory problems</li>
+                <li>Weakness or numbness in limbs</li>
+                <li>Speech or vision difficulties</li>
+              </ul>
+            </div>
+
+            <div class="info-section">
+              <h4>Treatment Options</h4>
+              <div class="treatment-tags">
+                <span class="treatment-tag immediate">Surgery</span>
+                <span class="treatment-tag management">Radiation</span>
+                <span class="treatment-tag prevention">Chemotherapy</span>
+              </div>
+              <ul>
+                <li><strong>Surgery:</strong> Maximum safe resection when possible</li>
+                <li><strong>Radiation Therapy:</strong> Targeted radiation to tumor site</li>
+                <li><strong>Chemotherapy:</strong> Temozolomide and other agents</li>
+                <li><strong>Targeted Therapy:</strong> Based on molecular markers</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Meningioma Information -->
+        <div class="tumor-info-card">
+          <div class="tumor-header meningioma-header">
+            <h3>About Meningioma Tumors</h3>
+          </div>
+          <div class="tumor-content">
+            <p class="tumor-description">
+              Meningiomas arise from the meninges, the protective membranes surrounding the brain and spinal cord. Most are benign and slow-growing.
+            </p>
+
+            <div class="info-section">
+              <h4>Characteristics</h4>
+              <ul>
+                <li>Develops from meningeal tissue (brain coverings)</li>
+                <li>Usually benign (90% of cases)</li>
+                <li>More common in women, especially after menopause</li>
+                <li>Often discovered incidentally on brain scans</li>
+              </ul>
+            </div>
+
+            <div class="info-section">
+              <h4>Common Symptoms</h4>
+              <ul>
+                <li>Gradual onset headaches</li>
+                <li>Vision problems or double vision</li>
+                <li>Hearing loss or ringing in ears</li>
+                <li>Memory loss or confusion</li>
+                <li>Weakness in arms or legs</li>
+              </ul>
+            </div>
+
+            <div class="info-section">
+              <h4>Treatment Options</h4>
+              <div class="treatment-tags">
+                <span class="treatment-tag immediate">Observation</span>
+                <span class="treatment-tag management">Surgery</span>
+                <span class="treatment-tag prevention">Radiation</span>
+              </div>
+              <ul>
+                <li><strong>Observation:</strong> Regular monitoring for small, asymptomatic tumors</li>
+                <li><strong>Surgery:</strong> Complete removal often possible</li>
+                <li><strong>Stereotactic Radiosurgery:</strong> For inoperable tumors</li>
+                <li><strong>Conventional Radiation:</strong> For incomplete resections</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pituitary Tumor Information -->
+        <div class="tumor-info-card">
+          <div class="tumor-header pituitary-header">
+            <h3>About Pituitary Tumors</h3>
+          </div>
+          <div class="tumor-content">
+            <p class="tumor-description">
+              Pituitary tumors develop in the pituitary gland, affecting hormone production. Most are benign adenomas that can cause hormonal imbalances.
+            </p>
+
+            <div class="info-section">
+              <h4>Characteristics</h4>
+              <ul>
+                <li>Located in the pituitary gland (master hormone gland)</li>
+                <li>Usually benign adenomas</li>
+                <li>Can be functioning (hormone-producing) or non-functioning</li>
+                <li>Size classified as microadenomas (&lt;1cm) or macroadenomas (&gt;1cm)</li>
+              </ul>
+            </div>
+
+            <div class="info-section">
+              <h4>Common Symptoms</h4>
+              <ul>
+                <li>Hormonal imbalances (various effects)</li>
+                <li>Vision problems (peripheral vision loss)</li>
+                <li>Headaches</li>
+                <li>Fatigue and weakness</li>
+                <li>Changes in menstrual cycles or sexual function</li>
+              </ul>
+            </div>
+
+            <div class="info-section">
+              <h4>Treatment Options</h4>
+              <div class="treatment-tags">
+                <span class="treatment-tag immediate">Medication</span>
+                <span class="treatment-tag management">Surgery</span>
+                <span class="treatment-tag prevention">Hormone Therapy</span>
+              </div>
+              <ul>
+                <li><strong>Medications:</strong> Dopamine agonists for prolactinomas</li>
+                <li><strong>Transsphenoidal Surgery:</strong> Minimally invasive approach</li>
+                <li><strong>Hormone Replacement:</strong> For hormone deficiencies</li>
+                <li><strong>Radiation Therapy:</strong> For residual or recurrent tumors</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- No Tumor Information -->
+        <div class="tumor-info-card">
+          <div class="tumor-header normal-header">
+            <h3>Normal Brain Tissue</h3>
+          </div>
+          <div class="tumor-content">
+            <p class="tumor-description">
+              Normal brain tissue shows no signs of tumors or abnormal growths. Regular monitoring and healthy lifestyle choices help maintain brain health.
+            </p>
+
+            <div class="info-section">
+              <h4>Healthy Brain Indicators</h4>
+              <ul>
+                <li>Normal tissue density and structure</li>
+                <li>No abnormal masses or lesions</li>
+                <li>Proper blood flow patterns</li>
+                <li>Symmetrical brain structures</li>
+              </ul>
+            </div>
+
+            <div class="info-section">
+              <h4>Maintaining Brain Health</h4>
+              <ul>
+                <li>Regular exercise and physical activity</li>
+                <li>Balanced diet rich in antioxidants</li>
+                <li>Adequate sleep (7-9 hours nightly)</li>
+                <li>Mental stimulation and learning</li>
+                <li>Stress management techniques</li>
+              </ul>
+            </div>
+
+            <div class="info-section">
+              <h4>Prevention & Monitoring</h4>
+              <div class="treatment-tags">
+                <span class="treatment-tag immediate">Regular Checkups</span>
+                <span class="treatment-tag management">Healthy Lifestyle</span>
+                <span class="treatment-tag prevention">Early Detection</span>
+              </div>
+              <ul>
+                <li><strong>Regular Medical Checkups:</strong> Annual health assessments</li>
+                <li><strong>Symptom Awareness:</strong> Monitor for neurological changes</li>
+                <li><strong>Healthy Lifestyle:</strong> Avoid known carcinogens</li>
+                <li><strong>Family History:</strong> Discuss genetic factors with doctor</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Upload Section -->
+      <section class="upload-section" id="upload-section">
+        <h2>Upload Image</h2>
+        <p class="section-subtitle">Choose an option:</p>
+        
+        <div class="upload-options">
+          <label class="radio-option">
+            <input type="radio" name="upload-type" value="device" checked>
+            <span class="radio-custom"></span>
+            Upload from device
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="upload-type" value="sample">
+            <span class="radio-custom"></span>
+            Use sample image
+          </label>
+        </div>
+
+        <p class="upload-instruction">Choose a brain MRI scan image...</p>
+        
+        <div id="upload-zone" class="upload-zone">
+          <input type="file" id="file-input" accept="image/*" hidden/>
+          <div class="upload-icon">☁️</div>
+          <p>Drag and drop file here</p>
+          <p class="file-types">Limit 200MB per file • JPG, JPEG, PNG</p>
+          <button id="browse-btn" class="browse-btn">Browse files</button>
+        </div>
+
+        <!-- Sample Images Gallery -->
+        <div id="sample-gallery" class="sample-gallery" style="display:none;">
+          <h3>Choose a Sample Image</h3>
+          <p class="gallery-subtitle">Select from 20 sample brain MRI scans across different categories</p>
+          <div id="sample-images-grid" class="sample-images-grid">
+            <!-- Sample images will be loaded here dynamically -->
+          </div>
+          <div class="gallery-loading" id="gallery-loading" style="display:none;">
+            <div class="spinner"></div>
+            <p>Loading sample images...</p>
+          </div>
+        </div>
+
+        <div id="upload-loading" class="loading-spinner" style="display:none;">
+          <div class="spinner"></div>
+          <p>Processing image...</p>
+        </div>
+
+        <!-- How to use section -->
+        <div class="how-to-use">
+          <h3>📋 How to use this tool</h3>
+          <ol>
+            <li>Upload a brain MRI scan image or use one of the example images</li>
+            <li>Click "Analyze Image" to process the image</li>
+            <li>View the preprocessing and classification results</li>
+            <li>Review the detected tumor type and confidence scores</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Results Section -->
+      <section id="results-section" class="results-section" style="display:none;">
+        <!-- Progress Bar -->
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <p class="progress-text" id="progress-text">Step 2/5: Processing brain MRI scan...</p>
+        </div>
+
+        <!-- Detection Result -->
+        <div class="detection-result">
+          <h2 id="detection-title">Detected Condition: Brain Tumor Classification</h2>
+
+          <!-- Probability Chart -->
+          <div class="chart-container">
+            <h3>Probability Distribution</h3>
+            <canvas id="probability-chart"></canvas>
+          </div>
+        </div>
+
+        <!-- Uploaded Image Display -->
+        <div id="uploaded-image-section" class="uploaded-image-section" style="display: none;">
+          <h3>Uploaded Brain Scan</h3>
+          <div class="uploaded-image-container">
+            <img id="uploaded-image-display" src="" alt="Uploaded Brain Scan" />
+            <div class="image-info">
+              <p id="image-filename"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Training Metrics Section -->
+        <div class="training-metrics">
+          <h3>View Model Performance Metrics</h3>
+
+          <!-- Performance Metrics Tabs -->
+          <div class="metrics-tabs">
+            <button class="tab-btn active" onclick="showMetricsTab('performance')">Performance Metrics</button>
+            <button class="tab-btn" onclick="showMetricsTab('accuracy')">Accuracy Over Epochs</button>
+            <button class="tab-btn" onclick="showMetricsTab('loss')">Loss Over Epochs</button>
+            <button class="tab-btn" onclick="showMetricsTab('confusion')">Confusion Matrix</button>
+          </div>
+
+          <!-- Performance Metrics Tab -->
+          <div id="performance-tab" class="metrics-tab-content active">
+            <div class="final-metrics">
+              <h4>Final Model Performance Metrics</h4>
+              <div class="metrics-bar-chart">
+                <div class="metric-bar">
+                  <div class="metric-label">Accuracy</div>
+                  <div class="bar-container">
+                    <div class="bar" style="width: 98.9%;">98.9%</div>
+                  </div>
+                </div>
+                <div class="metric-bar">
+                  <div class="metric-label">Precision</div>
+                  <div class="bar-container">
+                    <div class="bar" style="width: 95.7%;">95.7%</div>
+                  </div>
+                </div>
+                <div class="metric-bar">
+                  <div class="metric-label">Recall</div>
+                  <div class="bar-container">
+                    <div class="bar" style="width: 98.0%;">98.0%</div>
+                  </div>
+                </div>
+                <div class="metric-bar">
+                  <div class="metric-label">F1-Score</div>
+                  <div class="bar-container">
+                    <div class="bar" style="width: 98.9%;">98.9%</div>
+                  </div>
+                </div>
+                <div class="metric-bar">
+                  <div class="metric-label">Specificity</div>
+                  <div class="bar-container">
+                    <div class="bar" style="width: 98.8%;">98.8%</div>
+                  </div>
+                </div>
+                <div class="metric-bar">
+                  <div class="metric-label">AUC</div>
+                  <div class="bar-container">
+                    <div class="bar" style="width: 98.8%;">98.8%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- Accuracy Over Epochs Tab -->
+          <div id="accuracy-tab" class="metrics-tab-content">
+            <div class="training-image-container">
+              <img id="accuracy-epochs-img" src="/static/images/accuracy_over_epochs.png" alt="Accuracy Over Epochs" />
+            </div>
+          </div>
+
+          <!-- Loss Over Epochs Tab -->
+          <div id="loss-tab" class="metrics-tab-content">
+            <div class="training-image-container">
+              <img id="loss-epochs-img" src="/static/images/loss_over_epochs.png" alt="Loss Over Epochs" />
+            </div>
+          </div>
+
+          <!-- Confusion Matrix Tab -->
+          <div id="confusion-tab" class="metrics-tab-content">
+            <div class="training-image-container">
+              <img id="confusion-matrix-img" src="/static/images/confusion_matrix.png" alt="Confusion Matrix" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Preprocessing Steps -->
+        <div class="preprocessing-section">
+          <div class="section-header">
+            <h3>View Preprocessing Steps</h3>
+            <button class="expand-btn" id="expand-preprocessing">⛶</button>
+          </div>
+          <div class="preprocessing-gallery" id="preprocessing-gallery">
+            <!-- Images will be populated by JavaScript -->
+          </div>
+        </div>
+
+
+      </section>
+
+      <!-- Detailed Information Section (appears after detection) -->
+      <section class="detailed-info-section" id="detailed-info-section" style="display: none;">
+        <div class="detailed-info-header">
+          <h2 id="detailed-info-title">About Detected Condition</h2>
+        </div>
+
+        <div class="detailed-info-content">
+          <!-- Condition Description -->
+          <div class="info-card description-card">
+            <h3>Condition Overview</h3>
+            <p id="condition-description">Detailed information about the detected condition will appear here.</p>
+          </div>
+
+          <!-- Impact Section -->
+          <div class="info-card impact-card">
+            <h3>Impact</h3>
+            <ul id="impact-list">
+              <li>Impact information will be loaded based on detection results</li>
+            </ul>
+          </div>
+
+          <!-- Causes Section -->
+          <div class="info-card causes-card">
+            <h3>Common Causes & Contributing Factors</h3>
+            <ul id="causes-list">
+              <li>Cause information will be loaded based on detection results</li>
+            </ul>
+          </div>
+
+          <!-- Prevention Section -->
+          <div class="info-card prevention-card">
+            <h3>Prevention & Health Maintenance</h3>
+            <ul id="prevention-list">
+              <li>Prevention information will be loaded based on detection results</li>
+            </ul>
+          </div>
+
+          <!-- Treatment Section -->
+          <div class="info-card treatment-card">
+            <h3>Recommended Treatment</h3>
+            <div class="treatment-tags" id="treatment-tags">
+              <!-- Treatment tags will be dynamically added -->
+            </div>
+            <div class="treatment-subsection">
+              <h4>Immediate Actions</h4>
+              <ol id="immediate-actions-list">
+                <li>Treatment recommendations will be loaded based on detection results</li>
+              </ol>
+            </div>
+            <div class="treatment-subsection">
+              <h4>Long-term Management</h4>
+              <ul id="longterm-management-list">
+                <li>Management information will be loaded based on detection results</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Prognosis Section -->
+          <div class="info-card prognosis-card">
+            <h3>Prognosis & Outlook</h3>
+            <div id="prognosis-content">
+              <p>Prognosis information will be loaded based on detection results.</p>
+            </div>
+          </div>
+
+          <!-- When to Seek Help -->
+          <div class="info-card emergency-card">
+            <h3>When to Seek Immediate Medical Attention</h3>
+            <div class="emergency-warning">
+              <div class="emergency-icon">⚠️</div>
+              <div class="emergency-content">
+                <ul id="emergency-symptoms-list">
+                  <li>Emergency symptom information will be loaded based on detection results</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Disclaimer -->
+          <div class="info-card disclaimer-card">
+            <h3>Important Medical Disclaimer</h3>
+            <div class="disclaimer-content">
+              <p><strong>⚠️ This AI analysis is for educational purposes only and should not replace professional medical diagnosis.</strong></p>
+              <p>Always consult with qualified healthcare professionals for proper diagnosis, treatment planning, and medical advice. If you experience concerning symptoms, seek immediate medical attention.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="/static/script.js"></script>
+
+  <!-- Sample Gallery Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Sample gallery script loaded');
+
+      // Handle radio button changes
+      const radios = document.querySelectorAll('input[name="upload-type"]');
+      console.log('Found radios:', radios.length);
+
+      radios.forEach(function(radio) {
+        radio.addEventListener('change', function(e) {
+          console.log('Radio changed to:', e.target.value);
+          handleUploadTypeChange(e.target.value);
+        });
+      });
+
+      // Also handle label clicks
+      const labels = document.querySelectorAll('.radio-option');
+      labels.forEach(function(label) {
+        label.addEventListener('click', function() {
+          const radio = label.querySelector('input[type="radio"]');
+          if (radio) {
+            radio.checked = true;
+            handleUploadTypeChange(radio.value);
+          }
+        });
+      });
+
+      function handleUploadTypeChange(value) {
+        const gallery = document.getElementById('sample-gallery');
+        const uploadZone = document.getElementById('upload-zone');
+
+        if (value === 'sample') {
+          if (uploadZone) uploadZone.style.display = 'none';
+          if (gallery) gallery.style.display = 'block';
+          loadSampleImages();
+        } else {
+          if (uploadZone) uploadZone.style.display = 'block';
+          if (gallery) gallery.style.display = 'none';
+        }
+      }
+
+      function loadSampleImages() {
+        console.log('Loading sample images...');
+        const galleryLoading = document.getElementById('gallery-loading');
+        const imagesGrid = document.getElementById('sample-images-grid');
+
+        if (galleryLoading) galleryLoading.style.display = 'block';
+        if (imagesGrid) imagesGrid.innerHTML = '';
+
+        fetch('/sample-images')
+          .then(response => response.json())
+          .then(data => {
+            console.log('Sample images loaded:', data.images.length);
+            if (galleryLoading) galleryLoading.style.display = 'none';
+
+            data.images.forEach(function(image) {
+              const imageItem = document.createElement('div');
+              imageItem.className = 'sample-image-item';
+              imageItem.innerHTML =
+                '<img src="' + image.path + '" alt="' + image.display_name + '" loading="lazy">' +
+                '<div class="sample-image-category">' + image.display_name + '</div>' +
+                '<div class="sample-image-label">' + image.filename + '</div>';
+
+              imageItem.addEventListener('click', function() {
+                selectSampleImage(image);
+              });
+
+              if (imagesGrid) imagesGrid.appendChild(imageItem);
+            });
+          })
+          .catch(error => {
+            console.error('Error loading sample images:', error);
+            if (galleryLoading) galleryLoading.style.display = 'none';
+            if (imagesGrid) imagesGrid.innerHTML = '<p style="text-align: center; color: #ef4444;">Error loading sample images</p>';
+          });
+      }
+
+      function selectSampleImage(image) {
+        console.log('Selected sample image:', image.filename);
+
+        // Show loading
+        const uploadLoading = document.getElementById('upload-loading');
+        if (uploadLoading) uploadLoading.style.display = 'block';
+
+        fetch('/predict-sample', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            category: image.category,
+            filename: image.filename
+          })
+        })
+        .then(response => response.json())
+        .then(result => {
+          console.log('Sample prediction result:', result);
+
+          if (uploadLoading) uploadLoading.style.display = 'none';
+
+          // Hide upload section and show results
+          const uploadSection = document.getElementById('upload-section');
+          const resultsSection = document.getElementById('results-section');
+
+          if (uploadSection) uploadSection.style.display = 'none';
+          if (resultsSection) resultsSection.style.display = 'block';
+
+          // Display results
+          displaySampleResults(result);
+        })
+        .catch(error => {
+          console.error('Error analyzing sample image:', error);
+          if (uploadLoading) uploadLoading.style.display = 'none';
+          alert('Error analyzing sample image');
+        });
+      }
+
+      function displaySampleResults(result) {
+        console.log('Displaying sample results:', result);
+
+        // Update detection title
+        const detectionTitle = document.getElementById('detection-title');
+        if (detectionTitle) {
+          const formattedPrediction = result.prediction.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
+          detectionTitle.textContent = 'Detected Condition: ' + formattedPrediction;
+        }
+
+        // Create probability chart
+        createSampleProbabilityChart(result.confidence_scores);
+
+        // Display uploaded image if available
+        if (result.uploaded_image_url) {
+          const uploadedImageSection = document.getElementById('uploaded-image-section');
+          const uploadedImage = document.getElementById('uploaded-image');
+
+          if (uploadedImageSection && uploadedImage) {
+            uploadedImage.src = result.uploaded_image_url;
+            uploadedImageSection.style.display = 'block';
+          }
+        }
+
+        // Display preprocessing steps if available
+        if (result.preprocessing_steps) {
+          displaySamplePreprocessingSteps(result.preprocessing_steps);
+        }
+      }
+
+      let sampleChart = null;
+
+      function createSampleProbabilityChart(confidenceScores) {
+        console.log('Creating probability chart with scores:', confidenceScores);
+
+        const canvas = document.getElementById('probability-chart');
+        if (!canvas) {
+          console.error('Probability chart canvas not found');
+          return;
+        }
+
+        const ctx = canvas.getContext('2d');
+
+        // Destroy existing chart if it exists
+        if (sampleChart) {
+          sampleChart.destroy();
+        }
+
+        const labels = Object.keys(confidenceScores).map(key =>
+          key.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())
+        );
+        const data = Object.values(confidenceScores);
+
+        // Create gradient colors based on confidence with green theme
+        const colors = data.map((value) => {
+          if (value > 80) return '#16a34a'; // High confidence - primary green
+          if (value > 60) return '#059669'; // Medium-high - darker green
+          if (value > 40) return '#10b981'; // Medium - emerald
+          if (value > 20) return '#34d399'; // Low-medium - light green
+          return '#9ca3af'; // Very low - gray
+        });
+
+        sampleChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              data: data,
+              backgroundColor: colors,
+              borderColor: colors.map(color => color + '80'),
+              borderWidth: 2,
+              borderRadius: 4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            layout: {
+              padding: 10
+            },
+            plugins: {
+              legend: {
+                display: false
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return context.parsed.y.toFixed(1) + '%';
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+                ticks: {
+                  callback: function(value) {
+                    return value + '%';
+                  },
+                  font: {
+                    size: 12,
+                    weight: '600'
+                  },
+                  color: '#059669'
+                },
+                grid: {
+                  color: 'rgba(22, 163, 74, 0.1)',
+                  borderColor: 'rgba(22, 163, 74, 0.2)'
+                }
+              },
+              x: {
+                ticks: {
+                  maxRotation: 45,
+                  font: {
+                    size: 11,
+                    weight: '600'
+                  },
+                  color: '#059669'
+                },
+                grid: {
+                  color: 'rgba(22, 163, 74, 0.1)',
+                  borderColor: 'rgba(22, 163, 74, 0.2)'
+                }
+              }
+            }
+          }
+        });
+      }
+
+      function displaySamplePreprocessingSteps(steps) {
+        const gallery = document.getElementById('preprocessing-gallery');
+        if (!gallery) return;
+
+        gallery.innerHTML = '';
+
+        steps.forEach(function(step) {
+          const stepDiv = document.createElement('div');
+          stepDiv.className = 'preprocessing-step';
+          stepDiv.innerHTML =
+            '<img src="' + step.image_url + '" alt="' + step.name + '" loading="lazy" onerror="this.src=\'/static/placeholder.jpg\'">' +
+            '<p>' + step.name + '</p>' +
+            '<div class="description">' + (step.description || '') + '</div>';
+          gallery.appendChild(stepDiv);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
